@@ -2,7 +2,7 @@
 
 R8 dataset from Reuters classification with the help of LSTM
 
-<h1> Steps to run the code. <h1>
+<h6> Steps to run the code. </h6>
 
 Run the setup.py file using the following command
 
