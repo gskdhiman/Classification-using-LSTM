@@ -2,12 +2,22 @@
 
 R8 dataset from Reuters classification with the help of LSTM
 
-<h6> Steps to run the code. </h6>
+## Steps to run the code.
 
-Run the setup.py file using the following command
+1. Run the setup.py file using the following command
 
   `python setup.py`
+  
+`Note`: If you are not able to run the above file, do the following:
+        Download the google news vectors from [here] (https://drive.google.com/uc?id=0B7XkCwpI5KDYNlNUTTlSS21pQmM&export=download)
+        Place them in a folder named <em> Google_News_vectors </em> in the current directory
+        Download the training data from [here] (https://www.cs.umb.edu/~smimarog/textmining/datasets/r8-train-stemmed.txt)
+        Download the testing dataset from [here] (https://www.cs.umb.edu/~smimarog/textmining/datasets/r8-test-stemmed.txt)
+        Place both the files in a folder named <em> Dataset </em> in the current directory
 
-Note: If you are not able to run the above file, open the file and run one line at a time.
+2. Run lstm.py after successfully download the google news vectors and the r8 dataset.
 
-
+  `python lstm.py`
+  
+3. Inspect the output.csv file generated for results.The result will be shown on the console also.
+  
