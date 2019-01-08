@@ -6,7 +6,7 @@ R8 dataset from Reuters classification with the help of LSTM
 
 1. Run the setup.py file using the following command
 
-  `python setup.py`
+`python setup.py`
   
 `Note`: If you are not able to run the above file, do the following:
         Download the google news vectors from [here](https://drive.google.com/uc?id=0B7XkCwpI5KDYNlNUTTlSS21pQmM&export=download)<br>
@@ -17,7 +17,7 @@ R8 dataset from Reuters classification with the help of LSTM
 
 2. Run lstm.py after successfully download the google news vectors and the r8 dataset.
 
-  `python lstm.py`
+`python lstm.py`
   
 3. Inspect the output.csv file generated for results.The result will be shown on the console also.
   
