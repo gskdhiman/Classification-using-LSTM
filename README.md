@@ -1,4 +1,4 @@
-# Classification of Reuters dataset
+# Sentence Classification using LSTM
 
 R8 dataset from Reuters classification with the help of LSTM
 
@@ -11,7 +11,7 @@ R8 dataset from Reuters classification with the help of LSTM
 `Note`: If you are not able to run the above file, do the following:
         Download the google news vectors from [here](https://drive.google.com/uc?id=0B7XkCwpI5KDYNlNUTTlSS21pQmM&export=download)<br>
         Place them in a folder named <em> Google_News_vectors </em> in the current directory<br>
-        Download the training data from [here](https://www.cs.umb.edu/~smimarog/textmining/datasets/r8-train-stemmed.txt)<br>
+        Download the training dataset from [here](https://www.cs.umb.edu/~smimarog/textmining/datasets/r8-train-stemmed.txt)<br>
         Download the testing dataset from [here](https://www.cs.umb.edu/~smimarog/textmining/datasets/r8-test-stemmed.txt)<br>
         Place both the files in a folder named <em> Dataset </em> in the current directory<br>
 
