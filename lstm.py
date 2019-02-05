@@ -12,6 +12,10 @@ from keras.layers import Dense,Dropout
 from keras.layers.recurrent import LSTM
 from keras.callbacks import ModelCheckpoint, TensorBoard
 from keras.models import load_model
+from sklearn.metrics import confusion_matrix #,cohen_kappa_score
+import matplotlib.pyplot as plt
+import seaborn as sns
+sns.set()
 lb = LabelBinarizer()
 
 emb_dim = 300
@@ -27,7 +31,7 @@ tensorboard_dir =os.getcwd()
 model_path = 'classify_lstm.h5'
 train_path = os.path.join('..','Dataset','r8-train-stemmed.txt')
 test_path = os.path.join('..','Dataset','r8-test-stemmed.txt')
-word_emb_model_path = os.path.join('..','Google_News_vectors','GoogleNews-vectors-negative300.bin')
+word_emb_model_path = os.path.join('..','Word_embeddings','GoogleNews-vectors-negative300.bin')
 
 
 def load_data(path,head_count = 0):
@@ -77,7 +81,7 @@ def features_to_emb(features):
     print("Done with the text to embedding conversion")
     return features
 
-def model_design(model_path, seq_len=20,emb_dim = 300,tensorboard_dir = "."):
+def model_design(model_path, seq_len=30,emb_dim = 300,tensorboard_dir = "."):
     inp = Input(shape=(seq_len,emb_dim))
     out = LSTM(300,return_sequences = True)(inp)
     out = Dropout(0.5)(out)
@@ -126,7 +130,8 @@ def predict_batch_with_exp(predictions,lb_classes,test_feat,test_lab):
     print("accuracy: %.2f" % a,"% on the test set")
     pred_df = pd.DataFrame({'sentences':test_feat,'actual':actual,'pred':pred}) 
     pred_df['result'] = pred_df.apply(func, axis=1)
-    return pred_df
+    c_matrix = confusion_matrix(actual,pred)
+    return (pred_df,c_matrix)
 
 def predict_batch_without_exp(model,lb_classes,sentences,output_path = 'output.csv'):
     """(batch mode) when you don't have the expected data"""
@@ -152,6 +157,14 @@ def predict_class(model,lb_classes,sent):
     return result
 
 
+def plot_heatmap(c_matrix):
+    sns.heatmap(c_matrix.T,annot = True,
+            fmt = 'g',cbar = False, xticklabels = list(lb.classes_),yticklabels =list(lb.classes_) )
+    plt.xlabel('TRUE VALUES')
+    plt.ylabel('PREDICTED VALUES')
+    plt.show()
+
+
 #main code starts here   
 if __name__=='__main__':
     """Training"""    
@@ -174,8 +187,12 @@ if __name__=='__main__':
     lb_classes = list(pickle.load(open(encoder_path, "rb" )))
     predictions = model.predict(test_features)
     """format1"""
-    pred_df = predict_batch_with_exp(predictions,lb_classes,test_feat,test_lab)
+    pred_df,c_matrix = predict_batch_with_exp(predictions,lb_classes,test_feat,test_lab)
     pred_df.to_csv('output.csv',index=False)
+    plot_heatmap(c_matrix)
+    #print(kappa_score)
+    #annot to put numbers in each square
+
     """format2"""
 #    pred_df2 = predict_batch_without_exp(model= model, lb_classes=lb_classes, sentences = test_feat.tolist())
     """format3"""
