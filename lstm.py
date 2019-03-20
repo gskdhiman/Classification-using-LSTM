@@ -65,15 +65,14 @@ def load_word2vec(word_emb_model_path):
 
 def get_emb(element):
     global seq_len,emb_dim
-    emb=[]
-    for word in element.split():
-        try:
-            emb.append(emb_model[str(word).lower()])    
-        except:
-            continue
-    if len(emb)==0:
-        emb.append(np.zeros(emb_dim))
-    return pad_sequences([emb],maxlen=seq_len,dtype='float64')[0]
+    emb = [emb_model[str(word).lower()] if word in emb_model  else np.zeros(emb_dim) for word in element.split()]
+    return pad_sequences([emb],maxlen=seq_len,dtype='float32')[0]
+
+#def getembedding(x):
+#    global GloveEmbeddings
+#    emb = [GloveEmbeddings[word] if word in GloveEmbeddings.keys() else GloveEmbeddings['zerovec'] for word in x.split()]
+#    return pad_sequences([emb],maxlen=seq_len, dtype='float32',padding = 'post')
+
 
 def features_to_emb(features):
     features = features.apply(lambda x : get_emb(x).astype('float64'))
@@ -163,6 +162,7 @@ def plot_heatmap(c_matrix):
     plt.xlabel('TRUE VALUES')
     plt.ylabel('PREDICTED VALUES')
     plt.show()
+     
 
 
 #main code starts here   
